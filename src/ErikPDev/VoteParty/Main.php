@@ -84,9 +84,7 @@ class Main extends PluginBase implements Listener {
           unset($this->serverData);
       }
     }
-    public function getInstance(){
-      return self;
-    }
+
     public function PlayerVoted() {
       if(isset($this->serverData)){
         $data = $this->serverData;
