@@ -5,4 +5,5 @@ branches:
 projects:
   VoteParty:
     path: ""
+    icon: "assets/icon.png"
 ...
