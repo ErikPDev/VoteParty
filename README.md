@@ -1,7 +1,7 @@
 # VoteParty
 
 # What does this plugin do?
-Everytime somebody votes in your server, the counter will decrease, once the counter hits zero. It can run commands that are specified in the config.yml file. Then the counter will reset to the specified number in the config.yml
+Give rewards to all online players when the server gets a certain amount of votes! 
 
 Read setup for more info!
 
