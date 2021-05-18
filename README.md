@@ -1,4 +1,5 @@
 # VoteParty
+[![VoteParty](https://i.imgur.com/515YfKH.png)](https://github.com/ErikPDev/VoteParty/)
 
 # What does this plugin do?
 Give rewards to all online players when the server gets a certain amount of votes! 
