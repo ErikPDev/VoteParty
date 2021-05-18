@@ -1,0 +1,38 @@
+# § - Custom color format, Same like minecraft default
+# A list of color codes
+# | Color Name   | Code |
+# |--------------|------|
+# | Dark Red     | §4   |
+# | Red          | §c   |
+# | Gold         | §6   |
+# | Yellow       | §e   |
+# | Dark Yellow  | §g   |
+# | Dark Green   | §2   |
+# | Green        | §a   |
+# | Aqua         | §b   |
+# | Dark Aqua    | §3   |
+# | Dark Blue    | §1   |
+# | Blue         | §9   |
+# | Light Purple | §d   |
+# | Dark Purple  | §5   |
+# | White        | §f   |
+# | Gray         | §7   |
+# | Dark Gray    | §8   |
+# | Black        | §0   |
+
+
+CountdownMSG: "§e{number}§f votes remaning till §6s§9u§ar§bp§cr§di§es§3e§9s§c!!" # Message to broadcast when a person voted.
+VotestoVoteParty: 10 # How many votes to start the party.
+WhenReached: "Partyyy!" # Message to broadcast when countdown reached
+ErrorRunning: "This command can only be ran by the console!"
+BetterVotingSupport: false # This will add support for BetterVoting and will disable the command, Set to  `true` to use.
+PocketVoteSupport: false # This will add support for PocketVote and will disable the command, Set to  `true` to use.
+commandtoRun: 
+  # They should not include the first "/" and they should be encased in quotes.
+  # It is recommended to encase the username variable in escaped quotes (\") to make sure it
+  # Selectors:
+  #   @a - All Players, this is experimental 
+  - "keyall diamond"
+  - "give \"@a\" diamond 64"
+
+config-verison: 1 # Please don't change this.
