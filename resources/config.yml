@@ -50,7 +50,7 @@
 
 
 CountdownMSG: "§e{number}§f votes remaning till §6s§9u§ar§bp§cr§di§es§3e§9s§c!!" # Message to broadcast when a person voted.
-VotestoVoteParty: 10 # How many votes to start the party.
+VotestoVoteParty: 50 # How many votes to start the party.
 WhenReached: "Partyyy!" # Message to broadcast when countdown reached
 ErrorRunning: "This command can only be ran by the console!"
 BetterVotingSupport: false # This will add support for BetterVoting and will disable the command, Set to  `true` to use.
