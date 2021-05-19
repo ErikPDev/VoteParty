@@ -46,7 +46,7 @@ class BetterVotingListener implements Listener{
         $this->plugin = $plugin;
     }
 
-    public function PlayerVoteEvent(PlayerVoteEvent $event) {
+    public function PlayerVoteEvent(PlayerVoteEvent $player) {
         $this->plugin->PlayerVoted();
     }
 }
