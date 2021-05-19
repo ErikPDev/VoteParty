@@ -28,3 +28,9 @@ Change `PocketVoteSupport` to true for PocketVote Support
 Change `BetterVotingSupport` to true for BetterVoting Support
 
 Notice: You can only use PocketVote or BetterVoting at a time.
+
+# Permissions & Commands
+| Commands       | Permission Nodes | Default |
+|----------------|------------------|---------|
+| voteparty      | voteparty.use    | OP      |
+| votepartyreset | voteparty.reset  | OP      |

@@ -125,9 +125,12 @@ class Main extends PluginBase implements Listener {
       switch (strtolower($cmd->getName())) {
         case "voteparty":
           if($player instanceof Player){ $player->sendMessage($this->prefix.$this->getConfig()->get("ErrorRunning"));return true; }
-          if($this->BetterVotingSupport == true){ $player->sendMessage($this->prefix."BetterVoting is enabled, please don't use this command");return true; }
-          if($this->PocketVoteSupport == true){ $player->sendMessage($this->prefix."PocketVote is enabled, please don't use this command");return true; }
+          if($this->BetterVotingSupport == true){ $player->sendMessage($this->prefix."BetterVoting is enabled, please don't use this command.");return true; }
+          if($this->PocketVoteSupport == true){ $player->sendMessage($this->prefix."PocketVote is enabled, please don't use this command.");return true; }
           $this->PlayerVoted();
+        case "votepartyreset":
+          $this->serverData->setVotes($this->getConfig->get("VotestoVoteParty"));
+          $player->sendMessage($this->prefix."Resseted VoteParty Counter.");
       }
       return true;
     }

@@ -7,8 +7,14 @@ commands:
   voteparty:
     description: "Call the VoteParty Event"
     permission: "voteparty.use"
+  votepartyreset:
+    description: "Reset the VoteParty counter"
+    permission: "voteparty.reset"
 
 permissions:
   voteparty.use:
     description: "Permission to use voteparty"
+    default: op
+  voteparty.reset:
+    description: "Permission to use votepartyreset"
     default: op
