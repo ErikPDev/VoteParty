@@ -6,4 +6,6 @@ projects:
   VoteParty:
     path: ""
     icon: "assets/icon.png"
+    lint:
+      phpstan: false
 ...
