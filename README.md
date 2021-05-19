@@ -1,7 +1,8 @@
 # VoteParty
 [![VoteParty](https://i.imgur.com/515YfKH.png)](https://github.com/ErikPDev/VoteParty/)
 
-# What does this plugin do?
+[![](https://poggit.pmmp.io/shield.state/VoteParty)](https://poggit.pmmp.io/p/VoteParty)
+
 Give rewards to all online players when the server gets a certain amount of votes! 
 
 Read setup for more info!
