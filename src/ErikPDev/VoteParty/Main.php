@@ -68,10 +68,15 @@ class Main extends PluginBase implements Listener {
         if($this->getServer()->getPluginManager()->getPlugin("BetterVoting") != null && $this->getConfig()->get("BetterVotingSupport") == true){
           $this->getServer()->getPluginManager()->registerEvents(new BetterVotingListener($this), $this);
           $this->BetterVotingSupport = true;
+          $this->getLogger()->info("BetterVoting support is enabled.");
         }
         if($this->getServer()->getPluginManager()->getPlugin("PocketVote") != null && $this->getConfig()->get("PocketVoteSupport") == true){
           $this->getServer()->getPluginManager()->registerEvents(new PocketVoteListener($this), $this);
           $this->PocketVoteSupport = true;
+          $this->getLogger()->info("PocketVote support is enabled.");
+        }
+        if($this->getConfig()->get("PocketVoteSupport") == false && $this->getConfig()->get("BetterVotingSupport") == false){
+          $this->getLogger()->info("VoteParty command is enabled.");
         }
         
         
@@ -129,7 +134,7 @@ class Main extends PluginBase implements Listener {
           if($this->PocketVoteSupport == true){ $player->sendMessage($this->prefix."PocketVote is enabled, please don't use this command.");return true; }
           $this->PlayerVoted();
         case "votepartyreset":
-          $this->serverData->setVotes($this->getConfig->get("VotestoVoteParty"));
+          $this->serverData->setVotes($this->getConfig()->get("VotestoVoteParty"));
           $player->sendMessage($this->prefix."Resseted VoteParty Counter.");
       }
       return true;

@@ -18,6 +18,7 @@ Modify the config.yml file located at plugin_data/VoteParty.
 
 If the voting plugin you use isn't supported by this plugin, then your voting plugin should execute the command `voteparty` everytime somebody votes.
 
+Once you've setted up the plugin make sure to run `/votepartyreset` to reset the counter to the default value on the Config.yml, also do this when you modify the config.
 # Supported Plugins
 BetterVoting and PocketVote are supported plugins.
 
