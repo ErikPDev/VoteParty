@@ -29,51 +29,44 @@
  * ------------------------------------------------------------------------
  */
 
-namespace ErikPDev\VoteParty;
+namespace ErikPDev\VoteParty\Listeners;
 
-class ServerData{
-    private $main;
+use pocketmine\event\Listener;
+use pocketmine\Player;
+use pocketmine\utils\TextFormat;
+use Ifera\ScoreHud\event\TagsResolveEvent;
+use Ifera\ScoreHud\event\ServerTagUpdateEvent;
+use Ifera\ScoreHud\scoreboard\ScoreTag;
+use ErikPDev\VoteParty\Main;
+class ScoreHUDListener implements Listener{
 
-    private $votes = 0;
-    public function __construct(Main $main){
-        $this->main = $main;
-        $this->maxVotes = $main->getConfig()->get("VotestoVoteParty");
-        $path = $this->getPath();
-        if(!is_file($path)){
-            return;
+    private $plugin;
+
+
+    public function __construct(Main $plugin)
+    {
+        $this->plugin = $plugin;
+    }
+
+    public function onTagResolve(TagsResolveEvent $event){
+        $player = $event->getPlayer();
+        $tag = $event->getTag();
+    
+        switch($tag->getName()){
+            case "voteparty.totalVotes":
+                $tag->setValue((string)$this->plugin->serverData->getTotalVotes());
+            break;
+            case "voteparty.maxVotes":
+                $tag->setValue((string)$this->plugin->getConfig()->get("VotestoVoteParty"));
+            break;
+    
         }
-
-        $data = yaml_parse_file($path);
-        $this->votes = $data["votes"];
-
     }
-
-    public function save(){
-        yaml_emit_file($this->getPath(), [
-            "votes" => $this->getVotes(),
-        ]);
-    }
-
-    public function getPath() : string{
-        return $this->main->getDataFolder() . "serverdata.yml";
-    }
-
-    public function getVotes() : int{
-        return $this->votes;
-    }
-
-    public function getTotalVotes() {
-        return $this->maxVotes - $this->votes;
-    }
-
-    public function incrementVotes() {
-        $this->votes++;
-    }
-
-    public function decrementVotes() {
-        $this->votes--;
-    }
-    public function setVotes(int $number) {
-      $this->votes = $number;
+    public function update(){
+        $ev = new ServerTagUpdateEvent(new ScoreTag(
+			"voteparty.totalVotes",
+			strval((string)$this->plugin->serverData->getTotalVotes()))
+	);
+	$ev->call();
     }
 }

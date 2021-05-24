@@ -44,11 +44,14 @@ use pocketmine\command\ConsoleCommandSender;
 use ErikPDev\VoteParty\ServerData;
 use ErikPDev\VoteParty\Listeners\BetterVotingListener;
 use ErikPDev\VoteParty\Listeners\PocketVoteListener;
+use ErikPDev\VoteParty\Listeners\ScoreHUDListener;
 class Main extends PluginBase implements Listener {
-    private $serverData;
+    public $serverData;
     private $prefix;
+    private $scoreHud;
     private $BetterVotingSupport = false;
     private $PocketVoteSupport = false;
+    private $ScoreHudSupport = false;
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->serverData = $data = new ServerData($this);
@@ -75,6 +78,12 @@ class Main extends PluginBase implements Listener {
           $this->PocketVoteSupport = true;
           $this->getLogger()->debug("PocketVote support is enabled.");
         }
+        if($this->getServer()->getPluginManager()->getPlugin("ScoreHud") != null){
+          $this->scoreHud = new ScoreHUDListener($this);
+          $this->getServer()->getPluginManager()->registerEvents($this->scoreHud, $this);
+          $this->ScoreHudSupport = true;
+          $this->getLogger()->debug("ScoreHud support is enabled.");
+        }
         if($this->getConfig()->get("PocketVoteSupport") == false && $this->getConfig()->get("BetterVotingSupport") == false){
           $this->getLogger()->debug("VoteParty command is enabled.");
         }
@@ -91,7 +100,7 @@ class Main extends PluginBase implements Listener {
     }
 
     public function PlayerVoted() {
-      if(isset($this->serverData)){
+      if(!isset($this->serverData)){ return; }
         $data = $this->serverData;
         if ($data->getVotes() < 1){
           $data->setVotes($this->getConfig()->get("VotestoVoteParty"));
@@ -116,12 +125,12 @@ class Main extends PluginBase implements Listener {
             
           }
         }else{
-
+          if($this->ScoreHudSupport == true){$this->scoreHud->update();}
           $this->getServer()->broadcastMessage($this->prefix.str_replace("{number}", $data->getVotes(), $this->getConfig()->get("CountdownMSG")));
           $data->decrementVotes();
           $data->save();
         }
-      }
+      
     }
 
 
@@ -133,9 +142,12 @@ class Main extends PluginBase implements Listener {
           if($this->BetterVotingSupport == true){ $player->sendMessage($this->prefix."BetterVoting is enabled, please don't use this command.");return true; }
           if($this->PocketVoteSupport == true){ $player->sendMessage($this->prefix."PocketVote is enabled, please don't use this command.");return true; }
           $this->PlayerVoted();
+          break;
         case "votepartyreset":
           $this->serverData->setVotes($this->getConfig()->get("VotestoVoteParty"));
+          if($this->ScoreHudSupport == true){$this->scoreHud->update();}
           $player->sendMessage($this->prefix."Resseted VoteParty Counter.");
+          break;
       }
       return true;
     }
