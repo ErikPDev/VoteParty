@@ -45,6 +45,7 @@ use ErikPDev\VoteParty\ServerData;
 use ErikPDev\VoteParty\Listeners\BetterVotingListener;
 use ErikPDev\VoteParty\Listeners\PocketVoteListener;
 use ErikPDev\VoteParty\Listeners\ScoreHUDListener;
+use ErikPDev\VoteParty\Update;
 class Main extends PluginBase implements Listener {
     public $serverData;
     private $prefix;
@@ -87,6 +88,7 @@ class Main extends PluginBase implements Listener {
         if($this->getConfig()->get("PocketVoteSupport") == false && $this->getConfig()->get("BetterVotingSupport") == false){
           $this->getLogger()->debug("VoteParty command is enabled.");
         }
+        Server::getInstance()->getAsyncPool()->submitTask(new Update("VoteParty", "1.2"));
         
         
     }
