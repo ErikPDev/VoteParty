@@ -6,6 +6,7 @@ main: ErikPDev\VoteParty\Main
 softdepend:
   - BetterVoting
   - PocketVote
+  - ScoreHud
 commands:
   voteparty:
     description: "Call the VoteParty Event"
