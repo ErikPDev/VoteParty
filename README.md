@@ -34,7 +34,7 @@ Notice: You can only use PocketVote or BetterVoting at a time.
 
 # ScoreHud
 This plugin also supports ScoreHud variables.
-§a{voteparty.totalVotes} §c/ §d{voteparty.maxVotes}
+Example: §a{voteparty.totalVotes} §c/ §d{voteparty.maxVotes}
 | Tag                  | Description                     |
 |----------------------|---------------------------------|
 | voteparty.totalVotes | Shows the votes to voteparty    |
