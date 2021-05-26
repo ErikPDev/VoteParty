@@ -80,10 +80,17 @@ class Main extends PluginBase implements Listener {
           $this->getLogger()->debug("PocketVote support is enabled.");
         }
         if($this->getServer()->getPluginManager()->getPlugin("ScoreHud") != null){
-          $this->scoreHud = new ScoreHUDListener($this);
-          $this->getServer()->getPluginManager()->registerEvents($this->scoreHud, $this);
-          $this->ScoreHudSupport = true;
-          $this->getLogger()->debug("ScoreHud support is enabled.");
+          if(is_dir($this->getServer()->getPluginManager()->getPlugin("ScoreHud")->getDataFolder()."addons")){
+            if( !file_exists( $this->getServer()->getPluginManager()->getPlugin("ScoreHud")->getDataFolder()."addons\VoteParty.php" ) ){
+              file_put_contents( $this->getServer()->getPluginManager()->getPlugin("ScoreHud")->getDataFolder()."addons\VoteParty.php", $this->getResource('/addon/VoteParty.php'));
+              $this->getLogger()->debug("Added addon to ScoreHUD");
+            }
+          }else{
+            $this->scoreHud = new ScoreHUDListener($this);
+            $this->getServer()->getPluginManager()->registerEvents($this->scoreHud, $this);
+            $this->ScoreHudSupport = true;
+            $this->getLogger()->debug("ScoreHud support is enabled.");
+          }
         }
         if($this->getConfig()->get("PocketVoteSupport") == false && $this->getConfig()->get("BetterVotingSupport") == false){
           $this->getLogger()->debug("VoteParty command is enabled.");
