@@ -37,8 +37,17 @@ This plugin also supports ScoreHud variables.
 Example: §a{voteparty.totalVotes} §c/ §d{voteparty.maxVotes}
 | Tag                  | Description                     |
 |----------------------|---------------------------------|
-| voteparty.totalVotes | Shows the votes to voteparty    |
-| voteparty.maxVotes   | Default votes to voteparty      |
+| voteparty.totalVotes | Shows the votes for voteparty    |
+| voteparty.maxVotes   | Default votes for voteparty      |
+
+# ScoreBoard
+This plugin supports ScoreBoard variables
+Example: §a{votes} §c/ §d{maxvotes}
+| Tag        | Description                     |
+|------------|---------------------------------|
+| votes      | Shows the votes for voteparty    |
+| maxvotes   | Default votes for voteparty      |
+
 
 # Permissions & Commands
 | Commands       | Permission Nodes | Default |
