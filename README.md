@@ -39,6 +39,7 @@ Example: §a{voteparty.totalVotes} §c/ §d{voteparty.maxVotes}
 |----------------------|---------------------------------|
 | voteparty.totalVotes | Shows the votes for voteparty    |
 | voteparty.maxVotes   | Default votes for voteparty      |
+<img src="https://raw.githubusercontent.com/ErikPDev/VoteParty/main/assets/ScoreboardExample.png">
 
 # ScoreBoard
 This plugin supports ScoreBoard variables
@@ -47,7 +48,7 @@ Example: §a{votes} §c/ §d{maxvotes}
 |------------|---------------------------------|
 | votes      | Shows the votes for voteparty    |
 | maxvotes   | Default votes for voteparty      |
-
+<img src="https://raw.githubusercontent.com/ErikPDev/VoteParty/main/assets/ScoreboardExample.png">
 
 # Permissions & Commands
 | Commands       | Permission Nodes | Default |
