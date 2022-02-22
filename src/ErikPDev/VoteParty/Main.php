@@ -34,19 +34,17 @@ namespace ErikPDev\VoteParty;
 
 use pocketmine\plugin\PluginBase;
 
-use pocketmine\Player;
+use pocketmine\player\Player;
 use pocketmine\Server;
 use pocketmine\event\Listener;
 use pocketmine\command\Command;
-use pocketmine\item\Item;
 use pocketmine\command\CommandSender;
-use pocketmine\command\ConsoleCommandSender;
-use ErikPDev\VoteParty\ServerData;
-use ErikPDev\VoteParty\VersionManager;
+use pocketmine\console\ConsoleCommandSender;
 use ErikPDev\VoteParty\Listeners\BetterVotingListener;
 use ErikPDev\VoteParty\Listeners\PocketVoteListener;
 use ErikPDev\VoteParty\Listeners\ScoreHUDListener;
-use ErikPDev\VoteParty\Update;
+use Throwable;
+
 class Main extends PluginBase implements Listener {
     public $serverData,$versionManager;
     private $prefix;
@@ -54,7 +52,9 @@ class Main extends PluginBase implements Listener {
     private $BetterVotingSupport = false;
     private $PocketVoteSupport = false;
     private $ScoreHudSupport = false;
-    public function onEnable() {
+	private bool $ScoreboardSupport;
+
+	public function onEnable() : void{
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->serverData = $data = new ServerData($this);
         $this->versionManager = new VersionManager($this);
@@ -72,7 +72,7 @@ class Main extends PluginBase implements Listener {
           return;
         }
         if($this->getServer()->getPluginManager()->getPlugin("BetterVoting") != null && $this->getConfig()->get("BetterVotingSupport") == true){
-          if(!$this->versionManager->isLatest("BetterVoting",(float) 2)){
+          if(!$this->versionManager->isLatest("BetterVoting", 2.0)){
             $this->getLogger()->critical("This verison of BetterVoting isn't supported, the plugin is disabling.");
             $this->getServer()->getPluginManager()->disablePlugin($this);
             return;
@@ -82,7 +82,7 @@ class Main extends PluginBase implements Listener {
           $this->getLogger()->debug("BetterVoting support is enabled.");
         }
         if($this->getServer()->getPluginManager()->getPlugin("PocketVote") != null && $this->getConfig()->get("PocketVoteSupport") == true){
-          // PocketVote doesn't need a verison checker since it's supported with all verisons, and I should really clean this code.
+          // PocketVote doesn't need a version checker since it's supported with all versions, and I should really clean this code.
           $this->getServer()->getPluginManager()->registerEvents(new PocketVoteListener($this), $this);
           $this->PocketVoteSupport = true;
           $this->getLogger()->debug("PocketVote support is enabled.");
@@ -103,8 +103,8 @@ class Main extends PluginBase implements Listener {
         }
 
         if($this->getServer()->getPluginManager()->getPlugin("Scoreboard") != null){
-          if(!$this->versionManager->isLatest("Scoreboard",(float) 1.2)){
-            $this->getLogger()->critical("This verison of Scoreboard isn't supported, Update Scoreboard to the lastest verison.");
+          if(!$this->versionManager->isLatest("Scoreboard", 1.2)){
+            $this->getLogger()->critical("This version of Scoreboard isn't supported, Update Scoreboard to the latest version.");
           }else{
             $this->ScoreboardSupport = true;
             $this->getLogger()->debug("Scoreboard support is enabled.");
@@ -119,12 +119,11 @@ class Main extends PluginBase implements Listener {
         
     }
 
-    public function onDisable() {
+    public function onDisable() : void{
       if(!isset($this->serverData)){return;}
       $data = $this->serverData;
       $data->save();
       unset($this->serverData);
-      
     }
 
     public function PlayerVoted() {
@@ -133,21 +132,20 @@ class Main extends PluginBase implements Listener {
         if ($data->getVotes() < 1){
           $data->setVotes($this->getConfig()->get("VotestoVoteParty"));
           $this->getServer()->broadcastMessage($this->prefix.$this->getConfig()->get("WhenReached"));
-          foreach ($this->getConfig()->get("commandtoRun") as &$value) {
-            if(strpos($value, "@a") !== false){
-              foreach($this->getServer()->getOnlinePlayers() as &$OPlayer){
+          foreach ($this->getConfig()->get("commandtoRun") as $value) {
+            if(str_contains($value, "@a")){
+              foreach($this->getServer()->getOnlinePlayers() as $OPlayer){
                 try {
-                  $OPlayer->getName();
-                  $this->getServer()->dispatchCommand(new ConsoleCommandSender(), str_replace("@a",$OPlayer->getName(),$value));
-                } catch (\Throwable $th) {
-                  throw $th;
+	                $this->getServer()->dispatchCommand(new ConsoleCommandSender($this->getServer(), $this->getServer()->getLanguage()), str_replace("@a",$OPlayer->getName(),$value));
+                } catch (Throwable $th) {
+                  $this->getLogger()->critical($th->getMessage());
                 }
               } 
             }else{
               try {
-                $this->getServer()->dispatchCommand(new ConsoleCommandSender(), $value);
-              } catch (\Throwable $th) {
-                throw $th;
+                $this->getServer()->dispatchCommand(new ConsoleCommandSender($this->getServer(), $this->getServer()->getLanguage()), $value);
+              } catch (Throwable $th) {
+	              $this->getLogger()->critical($th->getMessage());
               }
             }
             

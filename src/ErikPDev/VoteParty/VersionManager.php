@@ -40,7 +40,7 @@ class VersionManager{
         $this->main = $main;
     }
 
-    public function isLatest(string $pluginName,float $verison){ 
+    public function isLatest(string $pluginName,float $verison): bool {
         $PluginVerison = floatval( $this->main->getServer()->getPluginManager()->getPlugin($pluginName)->getDescription()->getVersion() );
         if($PluginVerison >= $verison){
             return true;

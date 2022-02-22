@@ -65,7 +65,7 @@ class ScoreHUDListener implements Listener{
     public function update(){
         $ev = new ServerTagUpdateEvent(new ScoreTag(
 			"voteparty.totalVotes",
-			strval((string)$this->plugin->serverData->getTotalVotes()))
+		        (string)$this->plugin->serverData->getTotalVotes())
 	);
 	$ev->call();
     }

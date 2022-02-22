@@ -60,7 +60,7 @@ class Update extends AsyncTask{
 		$artifactUrl = "";
 		$api = "";
 		if($json !== false){
-			$releases = json_decode($json, true);
+			$releases = json_decode($json->getBody(), true);
 			if($releases === null || !is_array($releases) || !$releases){
 				$this->setResult([null, null, null, $err ?? "Unable to resolve host: " . self::POGGIT_RELEASES_URL . $this->pluginName]);
 				return;
@@ -78,7 +78,7 @@ class Update extends AsyncTask{
 		$this->setResult([$highestVersion, $artifactUrl, $api, $err]);
 	}
 
-	public function onCompletion(Server $server) : void{
+	public function onCompletion() : void{
 		$plugin = Server::getInstance()->getPluginManager()->getPlugin($this->pluginName);
 
 		if($plugin === null){
