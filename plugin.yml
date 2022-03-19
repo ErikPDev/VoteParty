@@ -1,6 +1,6 @@
 name: VoteParty
 author: ErikPDev
-api: 3.0.0
+api: 4.0.0
 version: 1.4
 main: ErikPDev\VoteParty\Main
 softdepend:
