@@ -67,7 +67,7 @@ class Main extends PluginBase implements Listener {
         if($this->getServer()->getPluginManager()->getPlugin("Voting38") != null && $this->getConfig()->get("Voting38Support") == true){
                   // PocketVote doesn't need a version checker since it's supported with all versions, and I should really clean this code.
                   $this->getServer()->getPluginManager()->registerEvents(new Voting38Listener($this), $this);
-                  $this->PocketVoteSupport = true;
+                  $this->Voting38 = true;
                   $this->getLogger()->debug("Voting38 support is enabled.");
                 }
         
