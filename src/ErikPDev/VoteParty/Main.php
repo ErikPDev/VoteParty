@@ -49,9 +49,8 @@ class Main extends PluginBase implements Listener {
     public $serverData,$versionManager;
     private $prefix;
     private $scoreHud;
-    private $BetterVotingSupport = false;
-    private $PocketVoteSupport = false;
     private $ScoreHudSupport = false;
+    private $Voting38 = false;
 	private bool $ScoreboardSupport;
 
 	public function onEnable() : void{
@@ -66,27 +65,13 @@ class Main extends PluginBase implements Listener {
           return;
         }
         $this->prefix = "§r§l[§eVote§cParty§f]§r ";
-        if($this->getConfig()->get("BetterVotingSupport") == true && $this->getConfig()->get("PocketVoteSupport") == true){
-          $this->getLogger()->critical("BetterVoting and PocketVote support are both setted to `true`, this will cause errors therefore, the plugin is disabling.");
-          $this->getServer()->getPluginManager()->disablePlugin($this);
-          return;
-        }
-        if($this->getServer()->getPluginManager()->getPlugin("BetterVoting") != null && $this->getConfig()->get("BetterVotingSupport") == true){
-          if(!$this->versionManager->isLatest("BetterVoting", 2.0)){
-            $this->getLogger()->critical("This verison of BetterVoting isn't supported, the plugin is disabling.");
-            $this->getServer()->getPluginManager()->disablePlugin($this);
-            return;
-          }
-          $this->getServer()->getPluginManager()->registerEvents(new BetterVotingListener($this), $this);
-          $this->BetterVotingSupport = true;
-          $this->getLogger()->debug("BetterVoting support is enabled.");
-        }
-        if($this->getServer()->getPluginManager()->getPlugin("PocketVote") != null && $this->getConfig()->get("PocketVoteSupport") == true){
-          // PocketVote doesn't need a version checker since it's supported with all versions, and I should really clean this code.
-          $this->getServer()->getPluginManager()->registerEvents(new PocketVoteListener($this), $this);
-          $this->PocketVoteSupport = true;
-          $this->getLogger()->debug("PocketVote support is enabled.");
-        }
+        if($this->getServer()->getPluginManager()->getPlugin("Voting38") != null && $this->getConfig()->get("Voting38Support") == true){
+                  // PocketVote doesn't need a version checker since it's supported with all versions, and I should really clean this code.
+                  $this->getServer()->getPluginManager()->registerEvents(new Voting38Listener($this), $this);
+                  $this->PocketVoteSupport = true;
+                  $this->getLogger()->debug("Voting38 support is enabled.");
+                }
+        
 
         if($this->getServer()->getPluginManager()->getPlugin("ScoreHud") != null){
           if(is_dir($this->getServer()->getPluginManager()->getPlugin("ScoreHud")->getDataFolder()."addons")){
@@ -111,7 +96,7 @@ class Main extends PluginBase implements Listener {
           }
         }
 
-        if($this->getConfig()->get("PocketVoteSupport") == false && $this->getConfig()->get("BetterVotingSupport") == false){
+        if($this->getConfig()->get("Voting38Support") == false){
           $this->getLogger()->debug("VoteParty command is enabled.");
         }
         Server::getInstance()->getAsyncPool()->submitTask(new Update("VoteParty", "1.4"));

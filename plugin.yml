@@ -4,10 +4,9 @@ api: 4.0.0
 version: 1.4
 main: ErikPDev\VoteParty\Main
 softdepend:
-  - BetterVoting
-  - PocketVote
   - ScoreHud
   - Scoreboard
+  - Voting38
 commands:
   voteparty:
     description: "Call the VoteParty Event"
