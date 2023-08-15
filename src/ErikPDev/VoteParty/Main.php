@@ -40,8 +40,7 @@ use pocketmine\event\Listener;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\console\ConsoleCommandSender;
-use ErikPDev\VoteParty\Listeners\BetterVotingListener;
-use ErikPDev\VoteParty\Listeners\PocketVoteListener;
+use ErikPDev\VoteParty\Listeners\Voting38Listener;
 use ErikPDev\VoteParty\Listeners\ScoreHUDListener;
 use Throwable;
 
