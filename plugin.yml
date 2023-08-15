@@ -1,7 +1,7 @@
 name: VoteParty
 author: ErikPDev
-api: 4.0.0
-version: 1.4
+api: 5.0.0
+version: 2.0.0
 main: ErikPDev\VoteParty\Main
 softdepend:
   - ScoreHud
