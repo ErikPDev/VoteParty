@@ -1,5 +1,5 @@
 # VoteParty
-[![VoteParty](https://i.imgur.com/515YfKH.png)](https://github.com/ErikPDev/VoteParty/)
+[![VoteParty](https://i.imgur.com/515YfKH.png)](https://github.com/antbag-pm-pl/VoteParty/)
 
 [![](https://poggit.pmmp.io/shield.state/VoteParty)](https://poggit.pmmp.io/p/VoteParty)
 
