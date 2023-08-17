@@ -147,11 +147,6 @@ class Main extends PluginBase implements Listener {
     
     public function onCommand(CommandSender $player, Command $cmd, string $label, array $args) : bool{
       switch (strtolower($cmd->getName())) {
-        case "voteparty":
-          if($player instanceof Player){ $player->sendMessage($this->prefix.$this->getConfig()->get("ErrorRunning"));return true; }
-          if($this->Voting38 == true){ $player->sendMessage($this->prefix."BetterVoting is enabled, please don't use this command.");return 
-          $this->PlayerVoted();
-          break;
         case "votepartyreset":
           $this->serverData->setVotes($this->getConfig()->get("VotestoVoteParty"));
           if($this->ScoreHudSupport == true){$this->scoreHud->update();}
