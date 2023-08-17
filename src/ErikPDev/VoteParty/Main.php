@@ -50,7 +50,7 @@ class Main extends PluginBase implements Listener {
     private $scoreHud;
     private $ScoreHudSupport = false;
     private $Voting38 = false;
-	private bool $ScoreboardSupport;
+    private bool $ScoreboardSupport;
 
 	public function onEnable() : void{
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -66,10 +66,10 @@ class Main extends PluginBase implements Listener {
         $this->prefix = "§r§l[§eVote§cParty§f]§r ";
         if($this->getServer()->getPluginManager()->getPlugin("Voting38") != null && $this->getConfig()->get("Voting38Support") == true){
                   // PocketVote doesn't need a version checker since it's supported with all versions, and I should really clean this code.
-                  $this->getServer()->getPluginManager()->registerEvents(new Voting38Listener($this), $this);
-                  $this->Voting38 = true;
-                  $this->getLogger()->debug("Voting38 support is enabled.");
-                }
+        $this->getServer()->getPluginManager()->registerEvents(new Voting38Listener($this), $this);
+        $this->Voting38 = true;
+        $this->getLogger()->debug("Voting38 support is enabled.");
+        }
         
 
         if($this->getServer()->getPluginManager()->getPlugin("ScoreHud") != null){
@@ -149,8 +149,7 @@ class Main extends PluginBase implements Listener {
       switch (strtolower($cmd->getName())) {
         case "voteparty":
           if($player instanceof Player){ $player->sendMessage($this->prefix.$this->getConfig()->get("ErrorRunning"));return true; }
-          if($this->BetterVotingSupport == true){ $player->sendMessage($this->prefix."BetterVoting is enabled, please don't use this command.");return true; }
-          if($this->PocketVoteSupport == true){ $player->sendMessage($this->prefix."PocketVote is enabled, please don't use this command.");return true; }
+          if($this->Voting38 == true){ $player->sendMessage($this->prefix."BetterVoting is enabled, please don't use this command.");return 
           $this->PlayerVoted();
           break;
         case "votepartyreset":
