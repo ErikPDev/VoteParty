@@ -58,7 +58,7 @@ class Main extends PluginBase implements Listener {
         $this->versionManager = new VersionManager($this);
         $this->saveDefaultConfig();
         $this->reloadConfig();
-        if($this->getConfig()->get("config-verison") != 1){
+        if($this->getConfig()->get("config-verison") != 2){
           $this->getLogger()->critical("Your config.yml file for VoteParty is outdated. Please use the new config.yml. To get it, delete the the old one.");
           $this->getServer()->getPluginManager()->disablePlugin($this);
           return;
