@@ -40,8 +40,7 @@ use pocketmine\event\Listener;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\console\ConsoleCommandSender;
-use ErikPDev\VoteParty\Listeners\BetterVotingListener;
-use ErikPDev\VoteParty\Listeners\PocketVoteListener;
+use ErikPDev\VoteParty\Listeners\Voting38Listener;
 use ErikPDev\VoteParty\Listeners\ScoreHUDListener;
 use Throwable;
 
@@ -49,10 +48,9 @@ class Main extends PluginBase implements Listener {
     public $serverData,$versionManager;
     private $prefix;
     private $scoreHud;
-    private $BetterVotingSupport = false;
-    private $PocketVoteSupport = false;
     private $ScoreHudSupport = false;
-	private bool $ScoreboardSupport;
+    private $Voting38 = false;
+    private bool $ScoreboardSupport;
 
 	public function onEnable() : void{
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -60,33 +58,19 @@ class Main extends PluginBase implements Listener {
         $this->versionManager = new VersionManager($this);
         $this->saveDefaultConfig();
         $this->reloadConfig();
-        if($this->getConfig()->get("config-verison") != 1){
+        if($this->getConfig()->get("config-verison") != 2){
           $this->getLogger()->critical("Your config.yml file for VoteParty is outdated. Please use the new config.yml. To get it, delete the the old one.");
           $this->getServer()->getPluginManager()->disablePlugin($this);
           return;
         }
         $this->prefix = "§r§l[§eVote§cParty§f]§r ";
-        if($this->getConfig()->get("BetterVotingSupport") == true && $this->getConfig()->get("PocketVoteSupport") == true){
-          $this->getLogger()->critical("BetterVoting and PocketVote support are both setted to `true`, this will cause errors therefore, the plugin is disabling.");
-          $this->getServer()->getPluginManager()->disablePlugin($this);
-          return;
+        if($this->getServer()->getPluginManager()->getPlugin("Voting38") != null && $this->getConfig()->get("Voting38Support") == true){
+                  // PocketVote doesn't need a version checker since it's supported with all versions, and I should really clean this code.
+        $this->getServer()->getPluginManager()->registerEvents(new Voting38Listener($this), $this);
+        $this->Voting38 = true;
+        $this->getLogger()->debug("Voting38 support is enabled.");
         }
-        if($this->getServer()->getPluginManager()->getPlugin("BetterVoting") != null && $this->getConfig()->get("BetterVotingSupport") == true){
-          if(!$this->versionManager->isLatest("BetterVoting", 2.0)){
-            $this->getLogger()->critical("This verison of BetterVoting isn't supported, the plugin is disabling.");
-            $this->getServer()->getPluginManager()->disablePlugin($this);
-            return;
-          }
-          $this->getServer()->getPluginManager()->registerEvents(new BetterVotingListener($this), $this);
-          $this->BetterVotingSupport = true;
-          $this->getLogger()->debug("BetterVoting support is enabled.");
-        }
-        if($this->getServer()->getPluginManager()->getPlugin("PocketVote") != null && $this->getConfig()->get("PocketVoteSupport") == true){
-          // PocketVote doesn't need a version checker since it's supported with all versions, and I should really clean this code.
-          $this->getServer()->getPluginManager()->registerEvents(new PocketVoteListener($this), $this);
-          $this->PocketVoteSupport = true;
-          $this->getLogger()->debug("PocketVote support is enabled.");
-        }
+        
 
         if($this->getServer()->getPluginManager()->getPlugin("ScoreHud") != null){
           if(is_dir($this->getServer()->getPluginManager()->getPlugin("ScoreHud")->getDataFolder()."addons")){
@@ -111,7 +95,7 @@ class Main extends PluginBase implements Listener {
           }
         }
 
-        if($this->getConfig()->get("PocketVoteSupport") == false && $this->getConfig()->get("BetterVotingSupport") == false){
+        if($this->getConfig()->get("Voting38Support") == false){
           $this->getLogger()->debug("VoteParty command is enabled.");
         }
         Server::getInstance()->getAsyncPool()->submitTask(new Update("VoteParty", "1.4"));
@@ -163,12 +147,6 @@ class Main extends PluginBase implements Listener {
     
     public function onCommand(CommandSender $player, Command $cmd, string $label, array $args) : bool{
       switch (strtolower($cmd->getName())) {
-        case "voteparty":
-          if($player instanceof Player){ $player->sendMessage($this->prefix.$this->getConfig()->get("ErrorRunning"));return true; }
-          if($this->BetterVotingSupport == true){ $player->sendMessage($this->prefix."BetterVoting is enabled, please don't use this command.");return true; }
-          if($this->PocketVoteSupport == true){ $player->sendMessage($this->prefix."PocketVote is enabled, please don't use this command.");return true; }
-          $this->PlayerVoted();
-          break;
         case "votepartyreset":
           $this->serverData->setVotes($this->getConfig()->get("VotestoVoteParty"));
           if($this->ScoreHudSupport == true){$this->scoreHud->update();}

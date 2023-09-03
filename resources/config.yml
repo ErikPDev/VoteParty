@@ -53,8 +53,7 @@ CountdownMSG: "§e{number}§f votes remaning till §6s§9u§ar§bp§cr§di§es§
 VotestoVoteParty: 50 # How many votes to start the party.
 WhenReached: "Partyyy!" # Message to broadcast when countdown reached
 ErrorRunning: "This command can only be ran by the console!"
-BetterVotingSupport: false # This will add support for BetterVoting and will disable the command, Set to  `true` to use.
-PocketVoteSupport: false # This will add support for PocketVote and will disable the command, Set to  `true` to use.
+Voting38Support: true
 commandtoRun: 
   # They should not include the first "/" and they should be encased in quotes.
   # It is recommended to encase the username variable in escaped quotes (\") to make sure it

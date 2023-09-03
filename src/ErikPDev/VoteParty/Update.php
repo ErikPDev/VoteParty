@@ -42,7 +42,7 @@ use function vsprintf;
 class Update extends AsyncTask{
 
 	/** @var string */
-	private const POGGIT_RELEASES_URL = "https://poggit.pmmp.io/releases.json?name=";
+	private const POGGIT_RELEASES_URL = "https://poggit.pmmp.io/p/";
 
 	/** @var string */
 	private $pluginName;

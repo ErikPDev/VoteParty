@@ -1,5 +1,5 @@
 # VoteParty
-[![VoteParty](https://i.imgur.com/515YfKH.png)](https://github.com/ErikPDev/VoteParty/)
+[![VoteParty](https://i.imgur.com/515YfKH.png)](https://github.com/antbag-pm-pl/VoteParty/)
 
 [![](https://poggit.pmmp.io/shield.state/VoteParty)](https://poggit.pmmp.io/p/VoteParty)
 
@@ -22,15 +22,11 @@ If the voting plugin you use isn't supported by this plugin, then your voting pl
 Once you've setted up the plugin make sure to run `/votepartyreset` to reset the counter to the default value on the Config.yml, also do this when you modify the config.
 
 # Supported Plugins
-BetterVoting and PocketVote are supported plugins.
+Voting38 is supported plugin.
 
-How to use BetterVoting or PocketVote with this plugin?
+How to use Voting38 with this plugin?
 
-Change `PocketVoteSupport` to true for PocketVote Support
-
-Change `BetterVotingSupport` to true for BetterVoting Support
-
-Notice: You can only use PocketVote or BetterVoting at a time.
+Change `Voting38Support` to true for Voting38 Support
 
 # ScoreHud
 This plugin also supports ScoreHud variables.
